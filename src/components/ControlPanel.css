@@ -1,7 +1,9 @@
 .controlpanel-container {
-    min-height: 70vh;
-    min-width: 10vw;
-    border-radius: 25px;
+    box-sizing: border-box;
+    height: 96vh;
+    max-width: 15vw;
+    border-radius: 5px;
     background-color: white;
-    margin: 25px;
+    padding: 10px;
 }
+

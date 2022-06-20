@@ -5,7 +5,7 @@ import './ControlPanel.css';
 function ControlPanel() {
     return (
         <div className="controlpanel-container">
-            Control Panel
+            <h2 className ="controlpanel-header">Control Panel</h2>
         </div>  
     )
 }

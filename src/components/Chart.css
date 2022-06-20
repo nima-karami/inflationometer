@@ -1,6 +1,7 @@
 .chart-container {
     min-height: 70vh;
     min-width: 70vw;
+    height: 700px;
     border-radius: 25px;
     background-color: white;
     margin: 25px;
