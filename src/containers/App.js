@@ -1,6 +1,7 @@
 import './App.css';
 import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
+import Copyright from '../components/Copyright';
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         <Chart/>
         
       </body>
-
+      <Copyright/>
     </div>
   );
 }

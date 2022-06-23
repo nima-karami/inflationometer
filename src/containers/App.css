@@ -14,12 +14,11 @@
 }
 
 .App-body {
-  background-color: #282c34;
+  background-color: #F0F2F5;
   min-height: 100vh;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 300px  auto;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
 }
 

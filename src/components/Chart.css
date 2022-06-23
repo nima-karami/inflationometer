@@ -1,8 +1,32 @@
 .chart-container {
-    min-height: 70vh;
+    box-sizing: border-box;
+    min-height: 90vh;
     min-width: 70vw;
     height: 700px;
-    border-radius: 25px;
+    border-radius: 5px;
+    margin-left: 50px;
+    margin-right: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-header {
+    width: 100%;
+    max-height: 200px;
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 30px;
+}
+
+.chart-header h4 {
+    display: inline-block;
+    margin:0px;
+}
+
+.chart-body {
+    box-sizing: border-box;
+    height: 100%;
     background-color: white;
-    margin: 25px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }

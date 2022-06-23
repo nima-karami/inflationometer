@@ -3,7 +3,10 @@
     height: 96vh;
     max-width: 15vw;
     border-radius: 5px;
-    background-color: white;
+    background-image: linear-gradient(to bottom, #434343 0%, black 100%);
+    color: white;
+    margin: 10px;
     padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
