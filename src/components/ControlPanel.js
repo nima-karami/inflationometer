@@ -1,11 +1,13 @@
 import React from "react";
 import './ControlPanel.css';
+import DropDown from '../components/DropDown';
 
 
 function ControlPanel() {
     return (
         <div className="controlpanel-container">
-            <h2 className ="controlpanel-header">Control Panel</h2>
+            <h5 className ="controlpanel-header">Inflationometer</h5>
+            <DropDown/>
         </div>  
     )
 }

@@ -6,6 +6,8 @@ import { Menu, ChevronLeft, Notifications } from '@mui/icons-material/';
 import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
 import Copyright from '../components/Copyright';
+import DropDown from '../components/DropDown';
+
 
 
 function App() {
@@ -19,8 +21,9 @@ function App() {
       </header> */}
 
       <body className="App-body">
-        <ControlPanel/>        
-        <Chart/>
+          <ControlPanel/>
+          <DropDown/>
+          <Chart/>
       </body>
       <Copyright/>
     </div>
