@@ -8,10 +8,15 @@ import Select from '@mui/material/Select';
 
 
 export default function DropDown() {
-  const [age, setAge] = React.useState('');
+  const [ticker1, setTicker1] = React.useState('');
+  const [ticker2, setTicker2] = React.useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleChange1 = (event) => {
+    setTicker1(event.target.value);
+  };
+
+  const handleChange2 = (event) => {
+    setTicker2(event.target.value);
   };
   
   return (
@@ -21,10 +26,10 @@ export default function DropDown() {
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={age}
-          onChange={handleChange}
+          value={ticker1}
+          onChange={handleChange1}
           autoWidth
-          label="Age"
+          label="Ticker"
         >
           <MenuItem value={10}>US SP500</MenuItem>
           <MenuItem value={21}>DJI</MenuItem>
@@ -37,14 +42,14 @@ export default function DropDown() {
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={age}
-          onChange={handleChange}
+          value={ticker2}
+          onChange={handleChange2}
           autoWidth
-          label="Age"
+          label="Ticker"
         >
-          <MenuItem value={10}>US SP500</MenuItem>
-          <MenuItem value={21}>DJI</MenuItem>
-          <MenuItem value={22}>Bitcoin</MenuItem>
+          <MenuItem value={30}>M2</MenuItem>
+          <MenuItem value={40}>M3</MenuItem>
+          <MenuItem value={50}>M4</MenuItem>
         </Select>
       </FormControl>
     </div>

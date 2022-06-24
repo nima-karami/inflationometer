@@ -1,3 +1,4 @@
+import * as React from 'react';
 import './App.css';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,11 +7,12 @@ import { Menu, ChevronLeft, Notifications } from '@mui/icons-material/';
 import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
 import Copyright from '../components/Copyright';
-import DropDown from '../components/DropDown';
-
 
 
 function App() {
+  const [ticker1, setTicker1] = React.useState('');
+  const [ticker2, setTicker2] = React.useState('');
+  
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -22,7 +24,6 @@ function App() {
 
       <body className="App-body">
           <ControlPanel/>
-          <DropDown/>
           <Chart/>
       </body>
       <Copyright/>
