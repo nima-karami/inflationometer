@@ -7,9 +7,7 @@ import Select from '@mui/material/Select';
 
 
 
-export default function DropDown() {
-  const [ticker1, setTicker1] = React.useState('');
-  const [ticker2, setTicker2] = React.useState('');
+export default function DropDown({ticker1, ticker2, setTicker1, setTicker2}) {
 
   const handleChange1 = (event) => {
     setTicker1(event.target.value);
@@ -31,9 +29,9 @@ export default function DropDown() {
           autoWidth
           label="Ticker"
         >
-          <MenuItem value={10}>US SP500</MenuItem>
-          <MenuItem value={21}>DJI</MenuItem>
-          <MenuItem value={22}>Bitcoin</MenuItem>
+          <MenuItem value={'SP500'}>US SP500</MenuItem>
+          <MenuItem value={'DJI'}>DJI</MenuItem>
+          <MenuItem value={'BTC'}>Bitcoin</MenuItem>
         </Select>
       </FormControl>
 
@@ -47,9 +45,9 @@ export default function DropDown() {
           autoWidth
           label="Ticker"
         >
-          <MenuItem value={30}>M2</MenuItem>
-          <MenuItem value={40}>M3</MenuItem>
-          <MenuItem value={50}>M4</MenuItem>
+          <MenuItem value={'M2'}>M2</MenuItem>
+          <MenuItem value={'M3'}>M3</MenuItem>
+          <MenuItem value={'M4'}>M4</MenuItem>
         </Select>
       </FormControl>
     </div>

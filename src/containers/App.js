@@ -10,8 +10,8 @@ import Copyright from '../components/Copyright';
 
 
 function App() {
-  const [ticker1, setTicker1] = React.useState('');
-  const [ticker2, setTicker2] = React.useState('');
+  const [ticker1, setTicker1] = React.useState('ticker1');
+  const [ticker2, setTicker2] = React.useState('ticker2');
   
   return (
     <div className="App">
@@ -23,8 +23,10 @@ function App() {
       </header> */}
 
       <body className="App-body">
-          <ControlPanel/>
+          <ControlPanel ticker1 = {ticker1} ticker2 = {ticker2} setTicker1 = {setTicker1} setTicker2 = {setTicker2} />
           <Chart/>
+          {ticker1}
+          {ticker2}
       </body>
       <Copyright/>
     </div>
