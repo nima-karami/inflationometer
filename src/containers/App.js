@@ -12,6 +12,7 @@ import Copyright from '../components/Copyright';
 function App() {
   const [ticker1, setTicker1] = React.useState('ticker1');
   const [ticker2, setTicker2] = React.useState('ticker2');
+  const [period, setPeriod] = React.useState('daily');
   
   return (
     <div className="App">
@@ -23,7 +24,7 @@ function App() {
       </header> */}
 
       <body className="App-body">
-          <ControlPanel ticker1 = {ticker1} ticker2 = {ticker2} setTicker1 = {setTicker1} setTicker2 = {setTicker2} />
+          <ControlPanel ticker1 = {ticker1} ticker2 = {ticker2} period = {period} setTicker1 = {setTicker1} setTicker2 = {setTicker2} setPeriod = {setPeriod} />
           <Chart/>
           {ticker1}
           {ticker2}

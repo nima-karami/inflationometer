@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 
 
 
-export default function DropDown({ticker1, ticker2, setTicker1, setTicker2}) {
+export default function DropDown({ticker1, ticker2, period, setTicker1, setTicker2, setPeriod}) {
 
   const handleChange1 = (event) => {
     setTicker1(event.target.value);
@@ -15,6 +15,10 @@ export default function DropDown({ticker1, ticker2, setTicker1, setTicker2}) {
 
   const handleChange2 = (event) => {
     setTicker2(event.target.value);
+  };
+
+  const handleChange3 = (event) => {
+    setPeriod(event.target.value);
   };
   
   return (
@@ -48,6 +52,22 @@ export default function DropDown({ticker1, ticker2, setTicker1, setTicker2}) {
           <MenuItem value={'M2'}>M2</MenuItem>
           <MenuItem value={'M3'}>M3</MenuItem>
           <MenuItem value={'M4'}>M4</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl variant='filled' sx={{ m: 1, minWidth: 160}} style={{ backgroundColor: 'white'}}>
+        <InputLabel id="demo-simple-select-autowidth-label" variant="filled">Period</InputLabel>
+        <Select
+          labelId="demo-simple-select-autowidth-label"
+          id="demo-simple-select-autowidth"
+          value={period}
+          onChange={handleChange3}
+          autoWidth
+          label="Ticker"
+        >
+          <MenuItem value={'month'}>last month</MenuItem>
+          <MenuItem value={'quarter'}>last quarter</MenuItem>
+          <MenuItem value={'year'}>last year</MenuItem>
         </Select>
       </FormControl>
     </div>
