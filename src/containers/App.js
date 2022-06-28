@@ -25,9 +25,7 @@ function App() {
 
       <body className="App-body">
           <ControlPanel ticker1 = {ticker1} ticker2 = {ticker2} period = {period} setTicker1 = {setTicker1} setTicker2 = {setTicker2} setPeriod = {setPeriod} />
-          <Chart/>
-          {ticker1}
-          {ticker2}
+          <Chart ticker1 = {ticker1} ticker2 = {ticker2} period = {period} />
       </body>
       <Copyright/>
     </div>

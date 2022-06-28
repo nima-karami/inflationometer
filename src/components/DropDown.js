@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 
 
 
-export default function DropDown({ticker1, ticker2, period, setTicker1, setTicker2, setPeriod}) {
+export default function DropDown( {ticker1, ticker2, period, setTicker1, setTicker2, setPeriod} ) {
 
   const handleChange1 = (event) => {
     setTicker1(event.target.value);
