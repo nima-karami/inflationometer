@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import './Chart.css';
 import {
   Label,
   LineChart,
@@ -46,6 +47,8 @@ const getAxisYDomain = (from, to, ref, offset) => {
 };
 
 const initialState = {
+  stockChartXValues: [],
+  stockChartYValues: [],
   data: initialData,
   left: 'dataMin',
   right: 'dataMax',
@@ -60,8 +63,8 @@ const initialState = {
 
 export default class Example extends PureComponent {
 
-  constructor(props) {
-    super(props);
+  constructor( {ticker1, ticker2, period} ) {
+    super( {ticker1, ticker2, period} );
     this.state = initialState;
   }
 
@@ -70,6 +73,7 @@ export default class Example extends PureComponent {
   }
 
   fetchStock() {
+    const pointerToThis = this;
     const API_KEY = '3NYUROJPFE549POK';
     let stockSymbol = 'AMZN';
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&outputsize=compact&apikey=${API_KEY}`;
@@ -93,7 +97,10 @@ export default class Example extends PureComponent {
                 }
 
                 // console.log(stockChartYValuesFunction);
-                
+                pointerToThis.setState({
+                    stockChartXValues: stockChartXValuesFunction,
+                    stockChartYValues: stockChartYValuesFunction
+                });
             }
         )
   }
@@ -149,34 +156,20 @@ export default class Example extends PureComponent {
     const { data, barIndex, left, right, refAreaLeft, refAreaRight, top, bottom, top2, bottom2 } = this.state;
 
     return (
-      <div className="highlight-bar-charts" style={{ userSelect: 'none', width: '100%' }}>
-        <button type="button" className="btn update" onClick={this.zoomOut.bind(this)}>
-          Zoom Out
-        </button>
+      <div className='chart-container'>
+        <div className='chart-header'>
+            <h4>Stock</h4>
+        </div>
 
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart
-            width={800}
-            height={400}
-            data={data}
-            onMouseDown={(e) => this.setState({ refAreaLeft: e.activeLabel })}
-            onMouseMove={(e) => this.state.refAreaLeft && this.setState({ refAreaRight: e.activeLabel })}
-            // eslint-disable-next-line react/jsx-no-bind
-            onMouseUp={this.zoom.bind(this)}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis allowDataOverflow dataKey="name" domain={[left, right]} type="number" />
-            <YAxis allowDataOverflow domain={[bottom, top]} type="number" yAxisId="1" />
-            <YAxis orientation="right" allowDataOverflow domain={[bottom2, top2]} type="number" yAxisId="2" />
-            <Tooltip />
-            <Line yAxisId="1" type="natural" dataKey="cost" stroke="#8884d8" animationDuration={300} />
-            <Line yAxisId="2" type="natural" dataKey="impression" stroke="#82ca9d" animationDuration={300} />
+        <div className='chart-body'>
+            <p>
+                {this.state.stockChartXValues}
+            </p>
 
-            {refAreaLeft && refAreaRight ? (
-              <ReferenceArea yAxisId="1" x1={refAreaLeft} x2={refAreaRight} strokeOpacity={0.3} />
-            ) : null}
-          </LineChart>
-        </ResponsiveContainer>
+            <p>
+                {this.state.stockChartYValues}
+            </p>
+        </div>
       </div>
     );
   }
