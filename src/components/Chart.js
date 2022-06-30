@@ -73,6 +73,9 @@ export default class Example extends PureComponent {
     const API_KEY = '3NYUROJPFE549POK';
     let stockSymbol = 'AMZN';
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&outputsize=compact&apikey=${API_KEY}`;
+    let stockChartXValuesFunction = [];
+    let stockChartYValuesFunction = [];
+
 
     fetch(API_Call)
         .then(
@@ -83,6 +86,14 @@ export default class Example extends PureComponent {
         .then(
             function(data) {
                 console.log(data);
+
+                for (var key in data['Time Series (Daily)']) {
+                    stockChartXValuesFunction.push(key);
+                    stockChartYValuesFunction.push(data['Time Series (Daily)'][key]['4. close']);
+                }
+
+                // console.log(stockChartYValuesFunction);
+                
             }
         )
   }
