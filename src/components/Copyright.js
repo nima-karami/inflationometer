@@ -3,7 +3,7 @@ import { Typography, Link } from "@mui/material";
 
 function Copyright(props) {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      <Typography variant="body2" color="text.white" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://nima-karami.github.io/">
           Nima Karami

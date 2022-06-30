@@ -6,7 +6,6 @@ import { Drawer, Toolbar, Box, AppBar, List, Typography, Divider, IconButton, Ba
 import { Menu, ChevronLeft, Notifications } from '@mui/icons-material/';
 import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
-import Copyright from '../components/Copyright';
 
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
           <ControlPanel ticker1 = {ticker1} ticker2 = {ticker2} period = {period} setTicker1 = {setTicker1} setTicker2 = {setTicker2} setPeriod = {setPeriod} />
           <Chart ticker1 = {ticker1} ticker2 = {ticker2} period = {period} />
       </body>
-      <Copyright/>
     </div>
   );
 }

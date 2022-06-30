@@ -65,6 +65,28 @@ export default class Example extends PureComponent {
     this.state = initialState;
   }
 
+  componentDidMount() {
+    this.fetchStock();
+  }
+
+  fetchStock() {
+    const API_KEY = '3NYUROJPFE549POK';
+    let stockSymbol = 'AMZN';
+    let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&outputsize=compact&apikey=${API_KEY}`;
+
+    fetch(API_Call)
+        .then(
+            function(response) {
+                return response.json();
+            }
+        )
+        .then(
+            function(data) {
+                console.log(data);
+            }
+        )
+  }
+
   zoom() {
     let { refAreaLeft, refAreaRight } = this.state;
     const { data } = this.state;
