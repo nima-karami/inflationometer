@@ -4,12 +4,12 @@ import './Chart.css';
 import Plot from 'react-plotly.js';
 
 const initialState = {
-  ChartXValues1: [],
-  ChartYValues1: [],
-  ChartName1: '',
-  ChartXValues2: [],
-  ChartYValues2: [],
-  ChartName2: [],
+  chartXValues1: [],
+  chartYValues1: [],
+  chartName1: '',
+  chartXValues2: [],
+  chartYValues2: [],
+  chartName2: [],
 };
 
 export default class Example extends PureComponent {
@@ -47,9 +47,9 @@ export default class Example extends PureComponent {
                 }
 
                 pointerToThis.setState({
-                    ChartXValues2: xValues,
-                    ChartYValues2: yValues,
-                    ChartName2: 'Consumer Price Index'
+                    chartXValues2: xValues,
+                    chartYValues2: yValues,
+                    chartName2: 'Consumer Price Index'
                 });
             }
         )
@@ -81,8 +81,9 @@ export default class Example extends PureComponent {
                 }
 
                 pointerToThis.setState({
-                    ChartXValues1: xValues,
-                    ChartYValues1: yValues
+                    chartXValues1: xValues,
+                    chartYValues1: yValues,
+                    chartName1: stockSymbol
                 });
             }
         )
@@ -101,17 +102,21 @@ export default class Example extends PureComponent {
             <Plot
                 data={[
                     {
-                        x: this.state.ChartXValues1,
-                        y: this.state.ChartYValues1,
+                        x: this.state.chartXValues1,
+                        y: this.state.chartYValues1,
+                        name: this.state.chartName1,
                         type: 'scatter',
                         mode: 'lines',
                         marker: {color: 'green'},
                     },
                     {
-                        x: this.state.ChartXValues2,
-                        y: this.state.ChartYValues2,
+                        x: this.state.chartXValues2,
+                        y: this.state.chartYValues2,
+                        name: this.state.chartName2,
                         type: 'scatter',
                         mode: 'lines',
+                        // fill: 'tozeroy',
+                        // fillcolor :'rgba(120, 120, 120, 0.4)',
                         marker: {color: 'red'}, 
                     }
                 ]}
