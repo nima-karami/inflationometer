@@ -1,64 +1,15 @@
 import React, { PureComponent } from 'react';
 import './Chart.css';
-import {
-  Label,
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ReferenceArea,
-  ResponsiveContainer,
-} from 'recharts';
 
-const initialData = [
-  { name: 1, cost: 4.11, impression: 100 },
-  { name: 2, cost: 2.39, impression: 120 },
-  { name: 3, cost: 1.37, impression: 150 },
-  { name: 4, cost: 1.16, impression: 180 },
-  { name: 5, cost: 2.29, impression: 200 },
-  { name: 6, cost: 3, impression: 499 },
-  { name: 7, cost: 0.53, impression: 50 },
-  { name: 8, cost: 2.52, impression: 100 },
-  { name: 9, cost: 1.79, impression: 200 },
-  { name: 10, cost: 2.94, impression: 222 },
-  { name: 11, cost: 4.3, impression: 210 },
-  { name: 12, cost: 4.41, impression: 300 },
-  { name: 13, cost: 2.1, impression: 50 },
-  { name: 14, cost: 8, impression: 190 },
-  { name: 15, cost: 0, impression: 300 },
-  { name: 16, cost: 9, impression: 400 },
-  { name: 17, cost: 3, impression: 200 },
-  { name: 18, cost: 2, impression: 50 },
-  { name: 19, cost: 3, impression: 100 },
-  { name: 20, cost: 7, impression: 100 },
-];
-
-const getAxisYDomain = (from, to, ref, offset) => {
-  const refData = initialData.slice(from - 1, to);
-  let [bottom, top] = [refData[0][ref], refData[0][ref]];
-  refData.forEach((d) => {
-    if (d[ref] > top) top = d[ref];
-    if (d[ref] < bottom) bottom = d[ref];
-  });
-
-  return [(bottom | 0) - offset, (top | 0) + offset];
-};
+import Plot from 'react-plotly.js';
 
 const initialState = {
-  stockChartXValues: [],
-  stockChartYValues: [],
-  data: initialData,
-  left: 'dataMin',
-  right: 'dataMax',
-  refAreaLeft: '',
-  refAreaRight: '',
-  top: 'dataMax+1',
-  bottom: 'dataMin-1',
-  top2: 'dataMax+20',
-  bottom2: 'dataMin-20',
-  animation: true,
+  ChartXValues1: [],
+  ChartYValues1: [],
+  ChartName1: '',
+  ChartXValues2: [],
+  ChartYValues2: [],
+  ChartName2: [],
 };
 
 export default class Example extends PureComponent {
@@ -69,16 +20,50 @@ export default class Example extends PureComponent {
   }
 
   componentDidMount() {
-    this.fetchStock();
+    this.fetchCPI();
+    this.fetchStock('SPY')
   }
 
-  fetchStock() {
+  fetchCPI() {
     const pointerToThis = this;
     const API_KEY = '3NYUROJPFE549POK';
-    let stockSymbol = 'AMZN';
-    let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&outputsize=compact&apikey=${API_KEY}`;
-    let stockChartXValuesFunction = [];
-    let stockChartYValuesFunction = [];
+    let API_Call = `https://www.alphavantage.co/query?function=CPI&interval=monthly&apikey=${API_KEY}`;
+    let xValues = [];
+    let yValues = [];
+    
+    fetch(API_Call)
+        .then(
+            function(response) {
+                return response.json();
+            }
+        )
+        .then(
+            function(data) {
+                
+                for (var i in data['data']) {
+                    let obj = data['data'][i];
+                    xValues.push(obj['date']);
+                    yValues.push(obj['value']);
+                }
+
+                pointerToThis.setState({
+                    ChartXValues2: xValues,
+                    ChartYValues2: yValues,
+                    ChartName2: 'Consumer Price Index'
+                });
+            }
+        )
+  }
+
+  
+
+
+  fetchStock(stockSymbol) {
+    const pointerToThis = this;
+    const API_KEY = '3NYUROJPFE549POK';
+    let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${stockSymbol}&apikey=${API_KEY}`;
+    let xValues = [];
+    let yValues = [];
 
 
     fetch(API_Call)
@@ -89,72 +74,23 @@ export default class Example extends PureComponent {
         )
         .then(
             function(data) {
-                console.log(data);
-
-                for (var key in data['Time Series (Daily)']) {
-                    stockChartXValuesFunction.push(key);
-                    stockChartYValuesFunction.push(data['Time Series (Daily)'][key]['4. close']);
+                
+                for (var key in data['Monthly Adjusted Time Series']) {
+                    xValues.push(key);
+                    yValues.push(data['Monthly Adjusted Time Series'][key]['4. close']);
                 }
 
-                // console.log(stockChartYValuesFunction);
                 pointerToThis.setState({
-                    stockChartXValues: stockChartXValuesFunction,
-                    stockChartYValues: stockChartYValuesFunction
+                    ChartXValues1: xValues,
+                    ChartYValues1: yValues
                 });
             }
         )
   }
 
-  zoom() {
-    let { refAreaLeft, refAreaRight } = this.state;
-    const { data } = this.state;
-
-    if (refAreaLeft === refAreaRight || refAreaRight === '') {
-      this.setState(() => ({
-        refAreaLeft: '',
-        refAreaRight: '',
-      }));
-      return;
-    }
-
-    // xAxis domain
-    if (refAreaLeft > refAreaRight) [refAreaLeft, refAreaRight] = [refAreaRight, refAreaLeft];
-
-    // yAxis domain
-    const [bottom, top] = getAxisYDomain(refAreaLeft, refAreaRight, 'cost', 1);
-    const [bottom2, top2] = getAxisYDomain(refAreaLeft, refAreaRight, 'impression', 50);
-
-    this.setState(() => ({
-      refAreaLeft: '',
-      refAreaRight: '',
-      data: data.slice(),
-      left: refAreaLeft,
-      right: refAreaRight,
-      bottom,
-      top,
-      bottom2,
-      top2,
-    }));
-  }
-
-  zoomOut() {
-    const { data } = this.state;
-    this.setState(() => ({
-      data: data.slice(),
-      refAreaLeft: '',
-      refAreaRight: '',
-      left: 'dataMin',
-      right: 'dataMax',
-      top: 'dataMax+1',
-      bottom: 'dataMin',
-      top2: 'dataMax+50',
-      bottom2: 'dataMin+50',
-    }));
-  }
 
   render() {
-    const { data, barIndex, left, right, refAreaLeft, refAreaRight, top, bottom, top2, bottom2 } = this.state;
-
+    
     return (
       <div className='chart-container'>
         <div className='chart-header'>
@@ -162,13 +98,27 @@ export default class Example extends PureComponent {
         </div>
 
         <div className='chart-body'>
-            <p>
-                {this.state.stockChartXValues}
-            </p>
-
-            <p>
-                {this.state.stockChartYValues}
-            </p>
+            <Plot
+                data={[
+                    {
+                        x: this.state.ChartXValues1,
+                        y: this.state.ChartYValues1,
+                        type: 'scatter',
+                        mode: 'lines',
+                        marker: {color: 'green'},
+                    },
+                    {
+                        x: this.state.ChartXValues2,
+                        y: this.state.ChartYValues2,
+                        type: 'scatter',
+                        mode: 'lines',
+                        marker: {color: 'red'}, 
+                    }
+                ]}
+                layout={ {width: 1080, height: 720, title: 'A Fancy Plot', showlegend: true} }
+                displayLogo = {false}
+        
+            />
         </div>
       </div>
     );
