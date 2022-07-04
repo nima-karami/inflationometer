@@ -21,7 +21,7 @@ export default class Example extends PureComponent {
 
   componentDidMount() {
     this.fetchCPI();
-    this.fetchStock('SPY')
+    this.fetchStock('SPY', 'monthly')
   }
 
   fetchCPI() {
@@ -57,14 +57,18 @@ export default class Example extends PureComponent {
 
   
 
-
-  fetchStock(stockSymbol) {
+// This function fetches the closing price data of a stock in a set period of time from Alpha Vantage API
+  fetchStock(stockSymbol, period) {
     const pointerToThis = this;
     const API_KEY = '3NYUROJPFE549POK';
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${stockSymbol}&apikey=${API_KEY}`;
     let xValues = [];
     let yValues = [];
-
+    let timeSeries = {
+        'daily': 'Time Series (Daily)',
+        'weekly': 'Weekly Adjusted Time Series', 
+        'monthly': 'Monthly Adjusted Time Series'
+    };
 
     fetch(API_Call)
         .then(
@@ -75,9 +79,9 @@ export default class Example extends PureComponent {
         .then(
             function(data) {
                 
-                for (var key in data['Monthly Adjusted Time Series']) {
+                for (var key in data[timeSeries[period]]) {
                     xValues.push(key);
-                    yValues.push(data['Monthly Adjusted Time Series'][key]['4. close']);
+                    yValues.push(data[timeSeries[period]][key]['4. close']);
                 }
 
                 pointerToThis.setState({
@@ -120,8 +124,8 @@ export default class Example extends PureComponent {
                         marker: {color: 'red'}, 
                     }
                 ]}
-                layout={ {width: 1080, height: 720, title: 'A Fancy Plot', showlegend: true} }
-                displayLogo = {false}
+                layout={ {width: 1080, height: 720, title: '', showlegend: true} }
+                config= { {displaylogo: false} }
         
             />
         </div>
