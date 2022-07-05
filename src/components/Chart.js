@@ -12,16 +12,34 @@ const initialState = {
   chartName2: [],
 };
 
-export default class Example extends PureComponent {
+
+// function Chart ( {ticker1, ticker2, period} ) {
+//     const [chartState, setChartState] = React.useState(initialState);
+// } 
+
+// export default Chart;
+
+export default class Chart extends PureComponent {
 
   constructor( {ticker1, ticker2, period} ) {
     super( {ticker1, ticker2, period} );
+    const initialState = {
+        ticker1: ticker1,
+        chartXValues1: [],
+        chartYValues1: [],
+        chartName1: '',
+        ticker2: ticker2,
+        chartXValues2: [],
+        chartYValues2: [],
+        chartName2: [],
+        period: period
+      };
     this.state = initialState;
   }
 
   componentDidMount() {
     this.fetchCPI();
-    this.fetchStock('SPY', 'monthly')
+    this.fetchStock(this.state.ticker1, 'monthly');
   }
 
   fetchCPI() {
@@ -99,7 +117,7 @@ export default class Example extends PureComponent {
     return (
       <div className='chart-container'>
         <div className='chart-header'>
-            <h4>Stock</h4>
+            <h4>Stock {this.ticker1}</h4>
         </div>
 
         <div className='chart-body'>

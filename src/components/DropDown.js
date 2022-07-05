@@ -3,6 +3,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Chart from './Chart';
 
 
 
@@ -33,8 +34,8 @@ export default function DropDown( {ticker1, ticker2, period, setTicker1, setTick
           autoWidth
           label="Ticker"
         >
-          <MenuItem value={'SP500'}>US SP500</MenuItem>
-          <MenuItem value={'DJI'}>DJI</MenuItem>
+          <MenuItem value={'SPY'}>US SP500</MenuItem>
+          <MenuItem value={'DIA'}>Dow Jones Industrial Average</MenuItem>
           <MenuItem value={'BTC'}>Bitcoin</MenuItem>
         </Select>
       </FormControl>
