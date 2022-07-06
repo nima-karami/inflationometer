@@ -25,7 +25,6 @@ const initialChartState = {
 function App() {
   const [chartState, setChartState] = React.useState(initialChartState);
   
-
   return (
     <div className="App">
       {/* <header className="App-header">

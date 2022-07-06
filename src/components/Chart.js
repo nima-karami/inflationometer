@@ -1,21 +1,12 @@
 import React from 'react';
 import './Chart.css';
-
 import Plot from 'react-plotly.js';
-import fetchStock from './DropDown.js'
+
 
 function Chart ( {chartState, setChartState} ) {
     console.log('Chart.js Chart State:', chartState);
-    React.useEffect(() => {
-        setInterval(updateChartState, 10000);
-        
-    });
 
-    const updateChartState = () => {
-        chartState.revision++
-        console.log('update chart', chartState.revision);
-    }
-
+    
     return (
         <div className='chart-container'>
           <div className='chart-header'>

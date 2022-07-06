@@ -18,8 +18,8 @@ export default function DropDown( {chartState, setChartState} ) {
             chartXValues1: chartData.xValues,
             chartYValues1: chartData.yValues,
             revision: chartState.revision + 1
-    });
-    
+        });
+        
     // console.log('new ticker:', newTicker);
     // console.log('chart State: ', chartState);
   };
@@ -78,7 +78,7 @@ export default function DropDown( {chartState, setChartState} ) {
                 
             }
         )
-        console.log('Fetch Stock Chart Data:', chartData);
+        console.log('fetchStock() Chart Data:', chartData);
         return chartData;
   };
 
@@ -106,6 +106,7 @@ export default function DropDown( {chartState, setChartState} ) {
                 }
 
                 pointerToThis.setState({
+                    ...chartState,
                     chartXValues2: xValues,
                     chartYValues2: yValues,
                     chartName2: 'Consumer Price Index'
