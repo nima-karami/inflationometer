@@ -7,31 +7,45 @@ import Select from '@mui/material/Select';
 
 
 
-export default function DropDown( {ticker1, ticker2, period, setTicker1, setTicker2, setPeriod} ) {
+export default function DropDown( {chartState, setChartState} ) {
 
   const handleChange1 = (event) => {
-    setTicker1(event.target.value);
-    getChartData();
+    let newTicker = event.target.value;
+    let chartData = fetchStock(newTicker, 'monthly');
+    setChartState({
+        ...chartState,
+        ticker1: event.target.value,
+        chartXValues1: chartData.xValues,
+        chartYValues1: chartData.yValues
+    });
     
-
+    console.log('new ticker:', newTicker);
+    console.log('chart State: ', chartState);
   };
 
   const handleChange2 = (event) => {
-    setTicker2(event.target.value);
-    getChartData();
+    setChartState({
+        ...chartState,
+        ticker2: event.target.value
+    });
   };
 
   const handleChange3 = (event) => {
-    setPeriod(event.target.value);
-    getChartData();
+    setChartState({
+        ...chartState,
+        period: event.target.value
+    });
+    
   };
   
   const getChartData = () => {
-    console.log('ticker1: ', ticker1, '   period: ', period);
-    fetchStock(ticker1, period);
+    console.log('ticker1: ', chartState.ticker1, '   period: ', chartState.period);
+    let chartData = fetchStock(chartState.ticker1, chartState.period);
+    return chartData;
   }
+
   // This function fetches the closing price data of a stock in a set period of time from Alpha Vantage API
-  const fetchStock = (stockSymbol, period) => {
+  function fetchStock(stockSymbol, period) {
     const API_KEY = '3NYUROJPFE549POK';
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${stockSymbol}&apikey=${API_KEY}`;
     let xValues = [];
@@ -56,10 +70,16 @@ export default function DropDown( {ticker1, ticker2, period, setTicker1, setTick
                     xValues.push(key);
                     yValues.push(data[timeSeries[period]][key]['4. close']);
                 }
-                console.log('chart data: ', chartData);
-                return chartData;
+                console.log('Chart Data:', chartData);
+                
+                // setChartState({    
+                //     chartXValues1: xValues,
+                //     chartYValues1: yValues,
+                // });          
+                
             }
         )
+        return chartData;
   };
 
   // Fetch monthly values of Consumer Price Index
@@ -103,7 +123,7 @@ export default function DropDown( {ticker1, ticker2, period, setTicker1, setTick
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={ticker1}
+          value={chartState.ticker1}
           onChange={handleChange1}
           autoWidth
           label="Ticker"
@@ -119,7 +139,7 @@ export default function DropDown( {ticker1, ticker2, period, setTicker1, setTick
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={ticker2}
+          value={chartState.ticker2}
           onChange={handleChange2}
           autoWidth
           label="Ticker"
@@ -135,7 +155,7 @@ export default function DropDown( {ticker1, ticker2, period, setTicker1, setTick
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={period}
+          value={chartState.period}
           onChange={handleChange3}
           autoWidth
           label="Ticker"
