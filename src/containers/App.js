@@ -7,12 +7,25 @@ import { Menu, ChevronLeft, Notifications } from '@mui/icons-material/';
 import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
 
+const initialChartState = {
+  revision: 0,
+  chartName: '',
+  ticker1: 'SPY',
+  chartXValues1: [],
+  chartYValues1: [],
+  tracerName1: '',
+  ticker2: '',
+  chartXValues2: [],
+  chartYValues2: [],
+  tracerName2: [],
+  period: 'monthly'
+};
+
 
 function App() {
-  const [ticker1, setTicker1] = React.useState('ticker1');
-  const [ticker2, setTicker2] = React.useState('ticker2');
-  const [period, setPeriod] = React.useState('daily');
+  const [chartState, setChartState] = React.useState(initialChartState);
   
+
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -23,8 +36,9 @@ function App() {
       </header> */}
 
       <body className="App-body">
-          <ControlPanel ticker1 = {ticker1} ticker2 = {ticker2} period = {period} setTicker1 = {setTicker1} setTicker2 = {setTicker2} setPeriod = {setPeriod} />
-          <Chart ticker1 = {ticker1} ticker2 = {ticker2} period = {period} />
+          <ControlPanel chartState = {chartState} setChartState = {setChartState} />
+          <Chart chartState = {chartState} setChartState = {setChartState} />
+
       </body>
     </div>
   );
