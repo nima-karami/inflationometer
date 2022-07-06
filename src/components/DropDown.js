@@ -8,15 +8,16 @@ import Select from '@mui/material/Select';
 
 
 export default function DropDown( {chartState, setChartState} ) {
-
-  const handleChange1 = (event) => {
-    let newTicker = event.target.value;
-    let chartData = fetchStock(newTicker, 'monthly');
-    setChartState({
-        ...chartState,
-        ticker1: newTicker,
-        chartXValues1: chartData.xValues,
-        chartYValues1: chartData.yValues
+    
+    const handleChange1 = (event) => {
+        let newTicker = event.target.value;
+        let chartData = fetchStock(newTicker, 'monthly');
+        setChartState({
+            ...chartState,
+            ticker1: newTicker,
+            chartXValues1: chartData.xValues,
+            chartYValues1: chartData.yValues,
+            revision: chartState.revision + 1
     });
     
     // console.log('new ticker:', newTicker);
@@ -38,6 +39,10 @@ export default function DropDown( {chartState, setChartState} ) {
     
   };
   
+  React.useEffect(() => {
+    document.title = `price: ${chartState.ticker1}`
+  })
+
   const getChartData = () => {
     console.log('ticker1: ', chartState.ticker1, '   period: ', chartState.period);
     let chartData = fetchStock(chartState.ticker1, chartState.period);
@@ -79,6 +84,7 @@ export default function DropDown( {chartState, setChartState} ) {
                 
             }
         )
+        console.log('Fetch Stock Chart Data:', chartData);
         return chartData;
   };
 

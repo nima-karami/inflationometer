@@ -8,6 +8,7 @@ import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
 
 const initialChartState = {
+  revision: 0,
   chartName: '',
   ticker1: 'SPY',
   chartXValues1: [],
