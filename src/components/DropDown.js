@@ -74,13 +74,7 @@ export default function DropDown( {chartState, setChartState} ) {
                 for (var key in data[timeSeries[period]]) {
                     xValues.push(key);
                     yValues.push(data[timeSeries[period]][key]['4. close']);
-                }
-                // console.log('Chart Data:', chartData);
-                
-                // setChartState({    
-                //     chartXValues1: xValues,
-                //     chartYValues1: yValues,
-                // });          
+                }        
                 
             }
         )

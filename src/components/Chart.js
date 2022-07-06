@@ -2,25 +2,24 @@ import React from 'react';
 import './Chart.css';
 
 import Plot from 'react-plotly.js';
-
+import fetchStock from './DropDown.js'
 
 function Chart ( {chartState, setChartState} ) {
     console.log('Chart.js Chart State:', chartState);
-    let chartXValues1, chartYValues1 = 0;
     React.useEffect(() => {
-        // setInterval(updateChartState, 1000);
+        setInterval(updateChartState, 10000);
+        
     });
 
     const updateChartState = () => {
-        console.log('update chart');
-        chartXValues1 = chartState.chartXValues1;
-        chartYValues1 = chartState.chartYValues1
+        chartState.revision++
+        console.log('update chart', chartState.revision);
     }
 
     return (
         <div className='chart-container'>
           <div className='chart-header'>
-              <h4>Stock {chartState.ticker1}  Chart Y Values: {chartState.chartYValues1[0]}</h4>
+              <h4>Stock {chartState.ticker1}   Period: {chartState.period}  Last price: {chartState.chartYValues1[0]}</h4>
           </div>
   
           <div className='chart-body'>
