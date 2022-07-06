@@ -37,7 +37,7 @@ function App() {
       <body className="App-body">
           <ControlPanel chartState = {chartState} setChartState = {setChartState} />
           <Chart chartState = {chartState} setChartState = {setChartState} />
-
+          {chartState.chartYValues1[0]}
       </body>
     </div>
   );

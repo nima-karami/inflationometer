@@ -11,17 +11,17 @@ export default function DropDown( {chartState, setChartState} ) {
     
     const handleChange1 = (event) => {
         let newTicker = event.target.value;
-        // let chartData = fetchStock(newTicker, 'monthly');
-        setChartState({
-            ...chartState,
-            ticker1: newTicker,
-            // chartXValues1: chartData.xValues,
-            // chartYValues1: chartData.yValues,
-            // revision: chartState.revision + 1
-        });
+        fetchStock (newTicker, 'monthly');
+        // setChartState({
+        //     ...chartState,
+        //     ticker1: newTicker,
+        //     chartXValues1: chartData.xValues,
+        //     chartYValues1: chartData.yValues,
+        //     // revision: chartState.revision + 1
+        // });
         
     // console.log('new ticker:', newTicker);
-    // console.log('chart State: ', chartState);
+    console.log('handle change chart State: ', chartState);
   };
 
   const handleChange2 = (event) => {
@@ -50,7 +50,7 @@ export default function DropDown( {chartState, setChartState} ) {
   }
 
   // This function fetches the closing price data of a stock in a set period of time from Alpha Vantage API
-  function fetchStock(stockSymbol, period) {
+ function fetchStock(stockSymbol, period) {
     const API_KEY = '3NYUROJPFE549POK';
     let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${stockSymbol}&apikey=${API_KEY}`;
     let xValues = [];
@@ -62,8 +62,15 @@ export default function DropDown( {chartState, setChartState} ) {
         'monthly': 'Monthly Adjusted Time Series'
     };
 
+    // const response = await fetch(API_Call);
+    // const data = await response.json();    
+    // for (var key in data[timeSeries[period]]) {
+    //     xValues.push(key);
+    //     yValues.push(data[timeSeries[period]][key]['4. close']);
+    // }      
+
     fetch(API_Call)
-        .then(
+    .then(
             function(response) {
                 return response.json();
             }
@@ -74,7 +81,14 @@ export default function DropDown( {chartState, setChartState} ) {
                 for (var key in data[timeSeries[period]]) {
                     xValues.push(key);
                     yValues.push(data[timeSeries[period]][key]['4. close']);
-                }        
+                }
+                
+                setChartState({
+                    ...chartState,
+                    ticker1: stockSymbol,
+                    chartXValues1: xValues,
+                    chartYValues1: yValues,
+                });
                 
             }
         )
