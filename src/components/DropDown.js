@@ -14,13 +14,13 @@ export default function DropDown( {chartState, setChartState} ) {
     let chartData = fetchStock(newTicker, 'monthly');
     setChartState({
         ...chartState,
-        ticker1: event.target.value,
+        ticker1: newTicker,
         chartXValues1: chartData.xValues,
         chartYValues1: chartData.yValues
     });
     
-    console.log('new ticker:', newTicker);
-    console.log('chart State: ', chartState);
+    // console.log('new ticker:', newTicker);
+    // console.log('chart State: ', chartState);
   };
 
   const handleChange2 = (event) => {
@@ -70,7 +70,7 @@ export default function DropDown( {chartState, setChartState} ) {
                     xValues.push(key);
                     yValues.push(data[timeSeries[period]][key]['4. close']);
                 }
-                console.log('Chart Data:', chartData);
+                // console.log('Chart Data:', chartData);
                 
                 // setChartState({    
                 //     chartXValues1: xValues,
@@ -130,7 +130,7 @@ export default function DropDown( {chartState, setChartState} ) {
         >
           <MenuItem value={'SPY'}>US SP500</MenuItem>
           <MenuItem value={'DIA'}>Dow Jones Industrial Average</MenuItem>
-          <MenuItem value={'BTC'}>Bitcoin</MenuItem>
+          <MenuItem value={'AAPL'}>Apple</MenuItem>
         </Select>
       </FormControl>
 
