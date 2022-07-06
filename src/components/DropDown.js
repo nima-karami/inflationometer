@@ -11,13 +11,13 @@ export default function DropDown( {chartState, setChartState} ) {
     
     const handleChange1 = (event) => {
         let newTicker = event.target.value;
-        let chartData = fetchStock(newTicker, 'monthly');
+        // let chartData = fetchStock(newTicker, 'monthly');
         setChartState({
             ...chartState,
             ticker1: newTicker,
-            chartXValues1: chartData.xValues,
-            chartYValues1: chartData.yValues,
-            revision: chartState.revision + 1
+            // chartXValues1: chartData.xValues,
+            // chartYValues1: chartData.yValues,
+            // revision: chartState.revision + 1
         });
         
     // console.log('new ticker:', newTicker);
