@@ -12,15 +12,7 @@ export default function DropDown( {chartState, setChartState} ) {
     const handleChange1 = (event) => {
         let newTicker = event.target.value;
         fetchStock (newTicker, 'monthly');
-        // setChartState({
-        //     ...chartState,
-        //     ticker1: newTicker,
-        //     chartXValues1: chartData.xValues,
-        //     chartYValues1: chartData.yValues,
-        //     // revision: chartState.revision + 1
-        // });
-        
-    // console.log('new ticker:', newTicker);
+       
     console.log('handle change chart State: ', chartState);
   };
 
@@ -61,14 +53,7 @@ export default function DropDown( {chartState, setChartState} ) {
         'weekly': 'Weekly Adjusted Time Series', 
         'monthly': 'Monthly Adjusted Time Series'
     };
-
-    // const response = await fetch(API_Call);
-    // const data = await response.json();    
-    // for (var key in data[timeSeries[period]]) {
-    //     xValues.push(key);
-    //     yValues.push(data[timeSeries[period]][key]['4. close']);
-    // }      
-
+   
     fetch(API_Call)
     .then(
             function(response) {
@@ -92,8 +77,6 @@ export default function DropDown( {chartState, setChartState} ) {
                 
             }
         )
-        console.log('fetchStock() Chart Data:', chartData);
-        return chartData;
   };
 
   // Fetch monthly values of Consumer Price Index
