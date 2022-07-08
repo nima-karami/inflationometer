@@ -11,7 +11,7 @@ export default function DropDown( {chartState, setChartState} ) {
     
     const handleChange1 = (event) => {
         let newTicker = event.target.value;
-        fetchStock (newTicker, 'monthly');
+        fetchStock (newTicker, chartState.period);
        
     console.log('handle change chart State: ', chartState);
   };
@@ -31,10 +31,6 @@ export default function DropDown( {chartState, setChartState} ) {
     
   };
   
-  React.useEffect(() => {
-    document.title = `price: ${chartState.ticker1}`
-  })
-
   const getChartData = () => {
     console.log('ticker1: ', chartState.ticker1, '   period: ', chartState.period);
     let chartData = fetchStock(chartState.ticker1, chartState.period);
@@ -44,16 +40,21 @@ export default function DropDown( {chartState, setChartState} ) {
   // This function fetches the closing price data of a stock in a set period of time from Alpha Vantage API
  function fetchStock(stockSymbol, period) {
     const API_KEY = '3NYUROJPFE549POK';
-    let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol=${stockSymbol}&apikey=${API_KEY}`;
+    let API_Call_functions = {
+        daily: 'TIME_SERIES_DAILY',
+        weekly: 'TIME_SERIES_WEEKLY_ADJUSTED',
+        monthly: 'TIME_SERIES_MONTHLY_ADJUSTED'
+    }
+    let API_Call = `https://www.alphavantage.co/query?function=${API_Call_functions[period]}&symbol=${stockSymbol}&apikey=${API_KEY}`;
     let xValues = [];
     let yValues = [];
-    let chartData = {'xValues': xValues,'yValues': yValues};
     let timeSeries = {
         'daily': 'Time Series (Daily)',
         'weekly': 'Weekly Adjusted Time Series', 
         'monthly': 'Monthly Adjusted Time Series'
     };
    
+    console.log ('API CALL: ', API_Call);
     fetch(API_Call)
     .then(
             function(response) {
@@ -102,7 +103,7 @@ export default function DropDown( {chartState, setChartState} ) {
                     yValues.push(obj['value']);
                 }
 
-                pointerToThis.setState({
+                setChartState({
                     ...chartState,
                     chartXValues2: xValues,
                     chartYValues2: yValues,
