@@ -81,13 +81,33 @@ export default function DropDown( {chartState, setChartState} ) {
   };
 
   // Fetch monthly values of Consumer Price Index
-  const fetchCPI = () => {
-    const pointerToThis = this;
+  const fetchIndicator = (indicator) => {
     const API_KEY = '3NYUROJPFE549POK';
-    let API_Call = `https://www.alphavantage.co/query?function=CPI&interval=monthly&apikey=${API_KEY}`;
+    let API_Call_functions = {
+        'GDP': 'function=REAL_GDP&interval=quarterly',
+        'GDP per Capita': 'function=REAL_GDP_PER_CAPITA',
+        'Federal Funds Rate': 'function=FEDERAL_FUNDS_RATE&interval=monthly',
+        'CPI': 'function=CPI&interval=monthly',
+        'Inflation': 'function=INFLATION',
+        'Inflation Expecation': 'function=INFLATION_EXPECTATION',
+        'Consumer Sentiment': 'function=CONSUMER_SENTIMENT',
+        'Retail Sales': 'function=RETAIL_SALES',
+        'Durable Goods Orders': 'function=DURABLES',
+        'Unemployment Rate': 'function=UNEMPLOYMENT'
+    }
+
+    let API_Call = `https://www.alphavantage.co/query?${API_Call_functions}&apikey=${API_KEY}`;
     let xValues = [];
     let yValues = [];
-    
+    let result = {
+        name:'',
+        interval:'',
+        unit:'',
+        xValues:[],
+        yValues:[]
+
+        };
+
     fetch(API_Call)
         .then(
             function(response) {
@@ -103,17 +123,23 @@ export default function DropDown( {chartState, setChartState} ) {
                     yValues.push(obj['value']);
                 }
 
-                setChartState({
-                    ...chartState,
-                    chartXValues2: xValues,
-                    chartYValues2: yValues,
-                    chartName2: 'Consumer Price Index'
-                });
+                result.name = data['name'];
+                result.interval = data['interval'];
+                result.unit = data['unit'];
+                result.xValues = xValues;
+                result.yValues = yValues;
+
+                return result;
+                // setChartState({
+                //     ...chartState,
+                //     chartXValues: xValues,
+                //     chartYValues: yValues,
+                //     chartName: 'Consumer Price Index'
+                // });
             }
         )
+        
   }
-
-
 
   return (
     <div>
