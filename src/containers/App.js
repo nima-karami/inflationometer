@@ -23,14 +23,14 @@ function App() {
           <div className="App-charts-container">
             {/* <ChartEconIndicator indicator = {'GDP'}/>
             <ChartEconIndicator indicator = {'GDP per Capita'}/>
-            <ChartEconIndicator indicator = {'Federal Funds Rate'}/>
+            <ChartEconIndicator indicator = {'Federal Funds Rate'}/> */}
             <ChartEconIndicator indicator = {'CPI'}/>
-            <ChartEconIndicator indicator = {'Inflation'}/>
+            {/* <ChartEconIndicator indicator = {'Inflation'}/>
             <ChartEconIndicator indicator = {'Inflation Expecation'}/> */}
-            <ChartEconIndicator indicator = {'Consumer Sentiment'}/>
+            {/* <ChartEconIndicator indicator = {'Consumer Sentiment'}/>
             <ChartEconIndicator indicator = {'Retail Sales'}/>
             <ChartEconIndicator indicator = {'Durable Goods Orders'}/>
-            <ChartEconIndicator indicator = {'Unemployment Rate'}/>
+            <ChartEconIndicator indicator = {'Unemployment Rate'}/> */}
           </div>
           
       </body>
