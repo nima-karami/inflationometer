@@ -4,27 +4,11 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Drawer, Toolbar, Box, AppBar, List, Typography, Divider, IconButton, Badge, Container, Grid, Paper, Link } from '@mui/material/';
 import { Menu, ChevronLeft, Notifications } from '@mui/icons-material/';
-import Chart from '../components/Chart';
 import ControlPanel from '../components/ControlPanel';
-
-const initialChartState = {
-  revision: 0,
-  chartName: '',
-  ticker1: 'SPY',
-  chartXValues1: [],
-  chartYValues1: [],
-  tracerName1: '',
-  ticker2: '',
-  chartXValues2: [],
-  chartYValues2: [],
-  tracerName2: [],
-  period: 'monthly'
-};
-
+import ChartEconIndicator from '../components/ChartEconIndicator';
 
 function App() {
-  const [chartState, setChartState] = React.useState(initialChartState);
-  
+   
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -35,9 +19,20 @@ function App() {
       </header> */}
 
       <body className="App-body">
-          <ControlPanel chartState = {chartState} setChartState = {setChartState} />
-          <Chart chartState = {chartState} setChartState = {setChartState} />
-          {chartState.chartYValues1[0]}
+          <ControlPanel />
+          <div className="App-charts-container">
+            {/* <ChartEconIndicator indicator = {'GDP'}/>
+            <ChartEconIndicator indicator = {'GDP per Capita'}/>
+            <ChartEconIndicator indicator = {'Federal Funds Rate'}/>
+            <ChartEconIndicator indicator = {'CPI'}/>
+            <ChartEconIndicator indicator = {'Inflation'}/>
+            <ChartEconIndicator indicator = {'Inflation Expecation'}/> */}
+            <ChartEconIndicator indicator = {'Consumer Sentiment'}/>
+            <ChartEconIndicator indicator = {'Retail Sales'}/>
+            <ChartEconIndicator indicator = {'Durable Goods Orders'}/>
+            <ChartEconIndicator indicator = {'Unemployment Rate'}/>
+          </div>
+          
       </body>
     </div>
   );

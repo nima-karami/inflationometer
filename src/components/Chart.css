@@ -1,11 +1,11 @@
 .chart-container {
     box-sizing: border-box;
-    min-height: 90vh;
-    min-width: 70vw;
-    height: 700px;
+    /* min-height: 40vh;
+    min-width: 40vw; */
+    height: 500px;
+    width: 700px;
     border-radius: 5px;
-    margin-left: 50px;
-    margin-right: 25px;
+
     display: flex;
     flex-direction: column;
 }

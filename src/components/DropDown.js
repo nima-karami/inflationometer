@@ -7,27 +7,22 @@ import Select from '@mui/material/Select';
 
 
 
-export default function DropDown( {chartState, setChartState} ) {
+export default function DropDown() {
     
     const handleChange1 = (event) => {
         let newTicker = event.target.value;
-        fetchStock (newTicker, chartState.period);
+        
        
     console.log('handle change chart State: ', chartState);
   };
 
   const handleChange2 = (event) => {
-    setChartState({
-        ...chartState,
-        ticker2: event.target.value
-    });
+    let newIndicator = event.target.value;
+    
   };
 
   const handleChange3 = (event) => {
-    setChartState({
-        ...chartState,
-        period: event.target.value
-    });
+
     
   };
   
@@ -96,17 +91,9 @@ export default function DropDown( {chartState, setChartState} ) {
         'Unemployment Rate': 'function=UNEMPLOYMENT'
     }
 
-    let API_Call = `https://www.alphavantage.co/query?${API_Call_functions}&apikey=${API_KEY}`;
+    let API_Call = `https://www.alphavantage.co/query?${API_Call_functions[indicator]}&apikey=${API_KEY}`;
     let xValues = [];
     let yValues = [];
-    let result = {
-        name:'',
-        interval:'',
-        unit:'',
-        xValues:[],
-        yValues:[]
-
-        };
 
     fetch(API_Call)
         .then(
@@ -123,19 +110,13 @@ export default function DropDown( {chartState, setChartState} ) {
                     yValues.push(obj['value']);
                 }
 
-                result.name = data['name'];
-                result.interval = data['interval'];
-                result.unit = data['unit'];
-                result.xValues = xValues;
-                result.yValues = yValues;
-
-                return result;
-                // setChartState({
-                //     ...chartState,
-                //     chartXValues: xValues,
-                //     chartYValues: yValues,
-                //     chartName: 'Consumer Price Index'
-                // });
+                setChartState({
+                    ...chartState,
+                    ticker2: indicator,
+                    chartXValues2: xValues,
+                    chartYValues2: yValues,
+                    chartName2: data['name']
+                });
             }
         )
         
@@ -169,9 +150,9 @@ export default function DropDown( {chartState, setChartState} ) {
           autoWidth
           label="Ticker"
         >
-          <MenuItem value={'M2'}>M2</MenuItem>
-          <MenuItem value={'M3'}>M3</MenuItem>
-          <MenuItem value={'M4'}>M4</MenuItem>
+          <MenuItem value={'GDP'}>GDP</MenuItem>
+          <MenuItem value={'GDP per Capita'}>GDP per Capita</MenuItem>
+          <MenuItem value={'CPI'}>CPI</MenuItem>
         </Select>
       </FormControl>
 
